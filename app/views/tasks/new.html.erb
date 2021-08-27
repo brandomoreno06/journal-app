@@ -1,0 +1,13 @@
+<% flash.each do |type, msg| %>
+  <div>
+    <%= msg %>
+  </div>
+<% end %>
+
+<%@task.errors.full_messages.each do |message| %>
+  <p><%= message %></p>
+<% end %>
+
+<%= form_with scope: :task, url: create_task_path, locale: true do |form| %>
+  <%= render 'form', f: form %>
+<% end %>

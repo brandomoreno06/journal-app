@@ -1,0 +1,16 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  due_date: "2200-09-09"
+  category: one
+
+two:
+  name: MyString
+  due_date: "2200-09-09"
+  category: one
+
+three:
+  name: MyString
+  due_date: "2000-09-09"
+  category: one

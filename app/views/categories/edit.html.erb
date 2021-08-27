@@ -1,0 +1,14 @@
+<% flash.each do |type, msg| %>
+  <div>
+    <%= msg %>
+  </div>
+<% end %>
+
+<%@category.errors.full_messages.each do |message| %>
+  <p><%= message %></p>
+<% end %>
+
+<h1>Edit Category</h1>
+<%= form_with scope: :category, url: edit_category_path, method: :patch do |f| %>
+  <%= render "form", form: f %>
+<% end %>
