@@ -2,26 +2,39 @@
 <h2><%= link_to "Categories", categories_path %></h2>
 <h2><%= link_to "Tasks", tasks_path %></h2>
 
-<div style= "background-color: lightblue" >
-<h2>View by category</h2>
-  <% @categories.each do |category| %>
-    <h2><%= category.name %></h2>
-    <% category.tasks.each do |task| %>
-      <p><%= task.name %></p>
+
+<div class= "container" style= "background-color: lightgray">
+  <h2>Tasks today</h2>
+  <ul class="list-group">
+    <% @tasks_today.each do |task| %>
+      <li class="list-group-item"><%= task.name %></li>
     <% end %>
-  <% end %>
+  </ul>
 </div>
 
-<div style= "background-color: lightgreen">
+<br/>
+
+<div class= "container" style= "background-color: lightblue" >
+<h2>View by category</h2>
+  <div class="row d-flex justify-content-around">
+    <% @categories.each do |category| %>
+      <div class="card col-sm-6 col-md-4 card-equal-height">
+        <div class="card-body">
+          <h5 class="card-title"><%= category.name %></h5>
+          <% category.tasks.each do |task| %>
+            <p class="card-text"><%= task.name %></p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<br/>
+
+<div class= "container" style= "background-color: lightgreen">
   <h2>View by task</h2>
   <% @tasks.each do |task| %>
-    <h2><%= task.name %></h2>
-  <% end %>
-</div>
-
-<div style= "background-color: lightgray">
-  <h2>Tasks today</h2>
-  <% @tasks_today.each do |task| %>
     <h2><%= task.name %></h2>
   <% end %>
 </div>

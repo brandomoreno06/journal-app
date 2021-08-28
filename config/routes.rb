@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   get '/tasks' => 'tasks#index', as: 'tasks'
   post '/categories/:category_id/tasks/new' => 'tasks#create', as: 'create_task'
   patch '/categories/:category_id/tasks/:id/edit' => 'tasks#update', as: 'update_task'
+  get '/tasks/new' => 'tasks#new_task', as: 'new_task'
 end

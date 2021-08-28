@@ -1,13 +1,25 @@
+<h1>Create New Task</h1>
+
+
 <% flash.each do |type, msg| %>
   <div>
     <%= msg %>
   </div>
 <% end %>
 
-<%@task.errors.full_messages.each do |message| %>
-  <p><%= message %></p>
-<% end %>
 
-<%= form_with scope: :task, url: create_task_path, locale: true do |form| %>
-  <%= render 'form', f: form %>
-<% end %>
+<div class="container">
+  <%= render 'errors' %>
+
+  <%= form_with scope: :task, url: create_task_path, locale: true do |form| %>
+    <div class="mb-3">
+      <%= form.label :category_id, class: "form-label" %>
+      <%= form.collection_select :category_id, Category.order(:name), :id, :name, {}, class: "form-control" %>
+    </div>
+  
+    <%= render 'form', f: form %>
+  <% end %>
+</div>
+
+
+<%= javascript_pack_tag 'form' %>
