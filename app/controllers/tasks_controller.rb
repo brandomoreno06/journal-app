@@ -13,12 +13,19 @@ class TasksController < ApplicationController
     @task = @category.tasks.build
   end
 
+  def new_task
+    @category = Category.first
+    @task = @category.tasks.build
+    redirect_to create_task_path(@category)
+  end
+
   def create
     @task = @category.tasks.create(task_params)
 
     if @task.save
       redirect_to category_path(@category)
     else
+      flash.now[:error] = "Failed to create task"
       render :new
     end
   end
@@ -32,6 +39,7 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to category_path(@category)
     else
+      flash.now[:error] = "Failed to udpate task"
       render :edit
     end
   end

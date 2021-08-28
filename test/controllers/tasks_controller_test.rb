@@ -7,6 +7,13 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "redirect to /categories/:category_id/tasks/new" do
+    @category = Category.first
+    get new_task_path
+
+    assert_redirected_to new_category_task_path(@category)
+  end
+
   test "go to /categories/:category_id/tasks/new" do
     @category = categories(:one)
     get new_category_task_path(@category)
@@ -113,4 +120,6 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
       get category_task_path(@category, @task)
     end
   end
+
+  #TEST FOR ON CHANGE OF CATEGORY WHEN ADDING TASK 
 end
