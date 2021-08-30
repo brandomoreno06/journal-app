@@ -18,7 +18,7 @@ end
     if @category.save
       redirect_to categories_path
     else
-      flash.now[:alert] = "Failed to add category"
+      flash.now[:error] = "Failed to add category"
       render :new
     end
   end
@@ -34,7 +34,7 @@ end
     if @category.save
       redirect_to categories_path
     else
-      flash.now[:alert] = "Failed to edit category"
+      flash.now[:error] = "Failed to edit category"
       render :edit
     end
   end

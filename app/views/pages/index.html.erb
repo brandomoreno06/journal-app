@@ -1,4 +1,9 @@
 <h1>Dashboard</h1>
+
+<% if user_signed_in? %>
+<h1><%= current_user.first_name + current_user.last_name %></h1>
+<% end %>
+
 <h2><%= link_to "Categories", categories_path %></h2>
 <h2><%= link_to "Tasks", tasks_path %></h2>
 
