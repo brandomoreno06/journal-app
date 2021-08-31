@@ -9,12 +9,10 @@ one:
   last_name:  String
   email: test@example.com
 
-
 two: 
   first_name: String
   last_name:  String
   email: test2@example.com
-
 
 name_exceeding_maximum: 
   first_name: This is a string with length more than 20 chars

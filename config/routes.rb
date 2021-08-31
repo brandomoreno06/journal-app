@@ -2,11 +2,20 @@ Rails.application.routes.draw do
   root 'pages#index'
   resources :pages, only: [:index]
 
-  devise_for :users, controllers: {
-    sessions: 'users/sessions',
-    registrations: 'users/registrations',
-    passwords: 'users/passwords'
-  }
+  devise_for :users, 
+    controllers: {
+      sessions: 'users/sessions',
+      registrations: 'users/registrations',
+      passwords: 'users/passwords'
+    },
+    skip: [:registrations],
+    path: 'account'
+
+  devise_scope :user do
+    post 'account/sign_up' => 'users/registrations#create', as: 'user_registration'
+    get 'account/sign_up' => 'users/registrations#new', as: 'new_user_registration'
+  end
+
 
   resources :categories, except: [:create, :update] do
     resources :tasks, except: [:index, :create, :update]
