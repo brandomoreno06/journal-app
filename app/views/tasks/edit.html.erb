@@ -1,12 +1,5 @@
 <h1>Editing Task</h1>
 
-<% flash.each do |type, msg| %>
-  <div>
-    <%= msg %>
-  </div>
-<% end %>
-
-
 <div class="container">
   <%= render 'errors' %>
   <%= form_with scope: :task, url: update_task_path, method: :patch, locale: true do |form| %>
