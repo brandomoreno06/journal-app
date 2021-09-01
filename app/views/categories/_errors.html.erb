@@ -1,3 +1,5 @@
-<%@category.errors.full_messages.each do |message| %>
-  <p><%= message %></p>
-<% end %>
+<div class="container">
+  <%@category.errors.full_messages.each do |message| %>
+    <p class="alert alert-error" ><%= message %></p>
+  <% end %>
+</div>

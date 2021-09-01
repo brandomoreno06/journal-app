@@ -1,45 +1,37 @@
-<h1>Dashboard</h1>
 
-<% if user_signed_in? %>
-<h1><%= current_user.first_name + current_user.last_name %></h1>
-<% end %>
-
-<h2><%= link_to "Categories", categories_path %></h2>
-<h2><%= link_to "Tasks", tasks_path %></h2>
-
-
-<div class= "container" style= "background-color: lightgray">
-  <h2>Tasks today</h2>
-  <ul class="list-group">
-    <% @tasks_today.each do |task| %>
-      <li class="list-group-item"><%= task.name %></li>
-    <% end %>
-  </ul>
-</div>
-
-<br/>
-
-<div class= "container" style= "background-color: lightblue" >
-<h2>View by category</h2>
-  <div class="row d-flex justify-content-around">
-    <% @categories.each do |category| %>
-      <div class="card col-sm-6 col-md-4 card-equal-height">
-        <div class="card-body">
-          <h5 class="card-title"><%= category.name %></h5>
-          <% category.tasks.each do |task| %>
-            <p class="card-text"><%= task.name %></p>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
+<div class="d-flex flex-column flex-md-row">
+  <div class= "col col-md-4" style= "background-color: lightgray">
+      <h2>Tasks today</h2>
+      <ul class="list-group">
+        <% @tasks_today.each do |task| %>
+          <li class="list-group-item"><%= task.name %></li>
+        <% end %>
+      </ul>
   </div>
-</div>
+  
 
-<br/>
-
-<div class= "container" style= "background-color: lightgreen">
-  <h2>View by task</h2>
-  <% @tasks.each do |task| %>
-    <h2><%= task.name %></h2>
-  <% end %>
+  <div class="col col-md-8">
+    <div class= "container-fluid" style= "background-color: lightblue" >
+    <h2>View by category</h2>
+      <div class="row d-flex justify-content-around">
+        <% @categories.each do |category| %>
+          <div class="card col-sm-6 col-md-4 card-equal-height">
+            <div class="card-body">
+              <h5 class="card-title"><%= category.name %></h5>
+              <% category.tasks.each do |task| %>
+                <p class="card-text"><%= task.name %></p>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    
+    <div class= "container-fluid" style= "background-color: lightgreen">
+      <h2>View by task</h2>
+      <% @tasks.each do |task| %>
+        <h2><%= task.name %></h2>
+      <% end %>
+    </div>
+  </div>
 </div>

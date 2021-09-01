@@ -1,8 +1,12 @@
-<h1>Editing Task</h1>
-
-<div class="container">
-  <%= render 'errors' %>
-  <%= form_with scope: :task, url: update_task_path, method: :patch, locale: true do |form| %>
-    <%= render 'form', f: form %>
-  <% end %>
+<div class="d-flex flex-column flex-md-row">
+  <div class="container">
+    <h1>Editing Task</h1>
+  </div>
+  
+  <div class="container">
+    <%= render 'errors' %>
+    <%= form_with scope: :task, url: update_task_path, method: :patch, locale: true do |form| %>
+      <%= render 'form', f: form %>
+    <% end %>
+  </div>
 </div>

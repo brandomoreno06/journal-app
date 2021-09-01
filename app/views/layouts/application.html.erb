@@ -16,12 +16,7 @@
       <%= render 'layouts/header' %>
     <% end %>
     
-    <% flash.each do |type, msg| %>
-      <div class="alert alert-<%= type %>" role="alert" >
-        <%= msg %>
-        <a href="#" data-dismiss="alert" class="close">×</a>
-      </div>
-    <% end %>
+    <%= render 'layouts/flash_messages' %>
     
     <%= yield %>
   </body>

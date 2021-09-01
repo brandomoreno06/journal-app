@@ -1,8 +1,12 @@
-<h1>Add Category</h1>
-
-<div class="container">
-  <%= render 'errors' %>
-  <%= form_with scope: :category, url: create_category_path do |f| %>
-    <%= render "form", form: f %>
-  <% end %>
+<div class="d-flex flex-column flex-md-row">
+  <div class="container" style="background: lightblue">
+    <h1>Add Category</h1>
+  </div>
+  
+  <div class="container">
+    <%= render 'errors' %>
+    <%= form_with scope: :category, url: create_category_path do |f| %>
+      <%= render "form", form: f %>
+    <% end %>
+  </div>
 </div>

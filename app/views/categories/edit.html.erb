@@ -1,8 +1,12 @@
-<h1>Edit Category</h1>
-
-<div class="container">
-  <%= render 'errors' %>
-  <%= form_with scope: :category, url: edit_category_path, method: :patch do |f| %>
-    <%= render "form", form: f %>
-  <% end %>
+<div class="d-flex flex-column flex-md-row" >
+  <div class="container">
+    <h1>Edit Category</h1>
+  </div>
+  
+  <div class="container">
+    <%= render 'errors' %>
+    <%= form_with scope: :category, url: edit_category_path, method: :patch do |f| %>
+      <%= render "form", form: f %>
+    <% end %>
+  </div>
 </div>

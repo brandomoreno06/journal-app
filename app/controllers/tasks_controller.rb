@@ -17,7 +17,7 @@ class TasksController < ApplicationController
     @category = Category.where(user_id: current_user.id).first
     if @category.nil?
       redirect_to new_category_path
-      flash[:notice] = "You need to create a category before creating your first task."
+      flash[:alert] = "You need to create a category before creating your first task."
     else
       @task = @category.tasks.build
       redirect_to new_category_task_path(@category)
@@ -31,8 +31,8 @@ class TasksController < ApplicationController
     if category_owner?
       if @task.save
         redirect_to category_path(@category)
+        flash[:notice] = "Successfully added a task"
       else
-        flash.now[:error] = "Failed to create task"
         render :new
       end
     end
@@ -47,7 +47,6 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to category_path(@category)
     else
-      flash.now[:error] = "Failed to udpate task"
       render :edit
     end
   end

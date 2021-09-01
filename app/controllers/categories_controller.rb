@@ -20,9 +20,8 @@ end
 
     if @category.save
       redirect_to category_path(@category)
-      flash.now[:notice] = "Successfully created a category."
+      flash[:notice] = "Successfully created a category."
     else
-      flash.now[:error] = "Failed to add category"
       render :new
     end
   end
@@ -40,7 +39,6 @@ end
       if @category.save
         redirect_to categories_path
       else
-        flash.now[:error] = "Failed to edit category"
         render :edit
       end
     end
