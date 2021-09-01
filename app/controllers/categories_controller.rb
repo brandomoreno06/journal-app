@@ -19,7 +19,8 @@ end
     @category.user_id = current_user.id
 
     if @category.save
-      redirect_to categories_path
+      redirect_to category_path(@category)
+      flash.now[:notice] = "Successfully created a category."
     else
       flash.now[:error] = "Failed to add category"
       render :new

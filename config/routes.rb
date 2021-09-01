@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   root 'pages#index'
-  resources :pages, only: [:index]
 
   devise_for :users, 
     controllers: {

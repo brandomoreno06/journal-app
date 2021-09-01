@@ -20,11 +20,6 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_session_path
   end
 
-  # test "should NOT get categories not owned by user" do
-  #   get categories_path
-
-  #   assert_not_equal categories.count, categories.where(user_id: users(:one).id).count, "Retrieved categories not owned by user"
-  # end
 
   test "should show category owned by current user" do
     @category = categories(:one)
@@ -63,17 +58,25 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_session_path
   end
 
+  test "should create a category" do
+    assert_difference "Category.count", 1, "Failed to create a category" do
+      post create_category_path params: { category: { name: 'Work', description: "", user_id: users(:one).id } }
+    end
+  end
+
   test "should redirect to /categories path after category creation" do
     post create_category_path params: { category: { name: 'Work', description: "", user_id: users(:one).id } }
     
-    assert_redirected_to categories_path, "Failed to redirect to /categories"
+    @category = Category.find_by(name: "Work", user_id: users(:one).id)
+    assert_redirected_to category_path(@category), "Failed to redirect to /category/:category[id] path"
   end
 
 
-  test "should NOT redirect to /categories if and redirect to sign-in page if user is not signed_in on category_creation" do
+  test "should NOT create a category if user is not signed in" do
     sign_out users(:one)
-    post create_category_path params: { category: { name: 'Work', description: "", user_id: users(:one).id } }
-    assert_redirected_to new_user_session_path, "Failed to redirect to sign-in page"
+    assert_difference "Category.count", 0, "Category has been created while user is not signed in" do
+      post create_category_path params: { category: { name: 'Work', description: "", user_id: users(:one).id } }
+    end
   end  
 
 
@@ -122,6 +125,15 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
 
     assert_not_equal Category.find(@category.id).name, 'Updated', "Updated a category which is not owned by the current user"
     assert_redirected_to root_path, "Failed to redirect to rooth path"
+  end
+
+  test "should NOT update category if user is not signed in" do
+    sign_out users(:one)
+    @category = categories(:one)
+    patch update_category_path(@category), params: { category: { name: 'Updated', description: 'Updated' } }
+
+    assert_not_equal Category.find(@category.id).name, 'Updated', "Updated a category while user is not signed in"
+    assert_redirected_to new_user_session_path, "Failed to redirect to sign in path"
   end
 
   

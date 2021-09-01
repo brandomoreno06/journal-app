@@ -4,13 +4,22 @@ one:
   name: MyString
   due_date: "2200-09-09"
   category: one
+  user: one
 
 two:
   name: MyString
   due_date: "2200-09-09"
   category: one
+  user: one
 
 three:
   name: MyString
   due_date: "2000-09-09"
-  category: one
+  category: two
+  user: one
+
+four:
+  name: MyString
+  due_date: "2000-09-09"
+  category: three
+  user: two

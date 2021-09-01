@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :category
+  belongs_to :user
   validate :due_date_not_past
 
   validates :name, presence: true

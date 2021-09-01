@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :categories, dependent: :destroy
-  # has_many :tasks, dependent: :destroy
+  has_many :tasks, dependent: :destroy
 
   validates :first_name, presence: true, length: { maximum: 20 }
   validates :last_name, presence: true, length: { maximum: 20 }
