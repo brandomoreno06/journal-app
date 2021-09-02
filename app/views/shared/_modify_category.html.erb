@@ -1,0 +1,14 @@
+<div class="col icons__modify">
+  <%= link_to category_path(category) do %>
+    <i class="bi bi-eye-fill p-2"></i>
+  <% end %>
+  <%= link_to edit_category_path(category) do %>
+    <i class="bi bi-pencil-square p-2"></i>
+  <% end %>
+  <%= link_to category_path(category),
+    method: :delete,
+    data: {confirm: "Are you sure you want to delete this?"} do
+  %>
+    <i class="bi bi-trash-fill p-2"></i>
+  <% end %>
+</div>

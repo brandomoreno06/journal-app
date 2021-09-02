@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'pages#index'
+  root 'pages#landing'
 
   devise_for :users, 
     controllers: {
@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
 
   #for form action url, with method post
+  get '/home' => 'pages#index', as: 'home'
   post '/categories/new' => 'categories#create', as: 'create_category'
   patch '/categories/:id/edit' => 'categories#update', as: 'update_category'
   get '/tasks' => 'tasks#index', as: 'tasks'

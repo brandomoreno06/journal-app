@@ -7,3 +7,17 @@
   min-height: 250px !important;
   max-height: 250px;
 }
+
+.card__modify {
+  position: relative !important;
+}
+
+.icons__modify {
+  position: absolute !important;
+  right: 1em !important;
+  bottom: 1em !important;
+}
+
+a {
+  text-decoration: none !important;
+}

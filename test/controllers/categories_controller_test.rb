@@ -42,7 +42,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     get category_path(@category_not_owned)
     
     assert_not_equal @category.user_id, @category_not_owned.user_id, "Category is owned by the user"
-    assert_redirected_to root_path, "Categories not owned by the user were shown."
+    assert_redirected_to home_path, "Categories not owned by the user were shown."
   end
 
   test "should go to /categories/new path" do
@@ -124,7 +124,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     patch update_category_path(@category), params: { category: { name: 'Updated', description: 'Updated' } }
 
     assert_not_equal Category.find(@category.id).name, 'Updated', "Updated a category which is not owned by the current user"
-    assert_redirected_to root_path, "Failed to redirect to rooth path"
+    assert_redirected_to home_path, "Failed to redirect to root path"
   end
 
   test "should NOT update category if user is not signed in" do

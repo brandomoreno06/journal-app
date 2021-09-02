@@ -42,7 +42,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     @task = tasks(:four)
     get category_task_path(@category, @task)
     
-    assert_redirected_to root_path, "Task not owned by user has been retreived"
+    assert_redirected_to home_path, "Task not owned by user has been retreived"
   end
 
   
@@ -89,7 +89,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "redirect to /categories/:category_id/tasks path after task creation" do
+  test "redirect to home path after task creation" do
     @category = categories(:one)
     post create_task_path(@category), params: { task: 
                                                     { name: 'New Task',
@@ -97,7 +97,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
                                                       due_date: Date.current,
                                                     } 
                                                   }
-    assert_redirected_to category_path(@category), "Failed to redirect to /categories/:category_id/tasks"
+    assert_redirected_to home_path, "Failed to redirect to home page"
   end
 
   test "should NOT create a task if user is not signed in " do
@@ -179,7 +179,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
                                                     due_date: Date.current
                                                   } }
     
-    assert_redirected_to category_path(@category), "Failed to redirect to /categories/:category_id/tasks/:id"
+    assert_redirected_to home_path, "Failed to redirect to home page"
   end
 
 
@@ -230,12 +230,12 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     assert_not_nil Task.find_by(id: @task.id), "Task not owned by the user has not been destroyed"
   end
 
-  test "should redirect to /categories/:id after destroying" do
+  test "should redirect to home page after destroying" do
     @category = categories(:one)
     @task = tasks(:one)
     delete category_task_path(@category, @task)
 
-    assert_redirected_to category_path(@category), "Failed to redirect to /categories/:id"
+    assert_redirected_to home_path, "Failed to redirect to home page"
   end
 
   test "should rescue `ActiveRecord::RecordNotFound` exception" do

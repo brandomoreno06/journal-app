@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, notice: "The page you are looking for doesn't exist"
   end
 
-  def after_sign_out_path_for(resource_or_scope)
-    new_user_session_path
+  def after_sign_in_path_for(resource_or_scope)
+    home_path
   end
 end

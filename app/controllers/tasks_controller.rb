@@ -30,7 +30,7 @@ class TasksController < ApplicationController
 
     if category_owner?
       if @task.save
-        redirect_to category_path(@category)
+        redirect_to home_path
         flash[:notice] = "Successfully added a task"
       else
         render :new
@@ -45,7 +45,7 @@ class TasksController < ApplicationController
     @task.update(task_params)
 
     if @task.save
-      redirect_to category_path(@category)
+      redirect_to home_path
     else
       render :edit
     end
@@ -53,7 +53,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to category_path(@category)
+    redirect_to home_path
   end
 
   private
@@ -74,7 +74,7 @@ class TasksController < ApplicationController
 
   def category_owner?
     unless current_user.id == @category.user_id
-      redirect_to root_path
+      redirect_to home_path
       flash[:alert] = "Unauthorized action"
       return
     end
@@ -83,7 +83,7 @@ class TasksController < ApplicationController
 
   def task_owner?
     unless current_user.id == @task.user_id
-      redirect_to root_path
+      redirect_to home_path
       flash[:alert] = "Unauthorized action"
       return
     end
