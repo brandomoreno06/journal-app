@@ -1,10 +1,10 @@
 <div class="container mt-5 mb-5">
   <% if @tasks.empty? %>
     <div class="container d-flex justify-content-center align-items-center">
-      <div >
+      <div class="text-center">
         <h2>You don't have any task</h2>
         <%= link_to new_task_path do %>
-        <div class="text-light">
+        <div>
           Create a new task
           <i class="bi bi-plus-circle"></i></h1>
         </div>

@@ -7,6 +7,7 @@ class TasksController < ApplicationController
   end
 
   def show
+    @task_category = Category.find_by(id: @task.category_id).name
   end
 
   def new

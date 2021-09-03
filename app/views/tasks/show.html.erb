@@ -1,9 +1,32 @@
-<h2><%= @task.name %></h2>
-<p><%= @task.due_date %></p>
-<p><%= @task.details %></p>
+<div class="container show__view">
+  <div class="col col-md-4 mt-5 mb-5">
+    <div class="card p-3">
+      <div class="card-body">
+        <h2 class="show__view__title"><%= @task.name %></h2>
+        <p class="fst-italic">Category: <strong><%= @task_category %></strong></p>
+        <p class="fst-italic">Due on: <strong><%= @task.due_date.to_formatted_s(:long) %></strong></p>
+        <p class="fst-italic">
+          <% if @task.details.empty? %>
+            <span class="text-light">No other details added for this task</span>
+          <% else %>
+            Details:
+            <strong><%= @task.details %></strong>
+          <% end %>
+        </p>
 
-<%= link_to "Edit Task", edit_category_task_path(@category, @task) %>
-<%= link_to "Delete Task", category_task_path(@category, @task),
-  method: :delete, 
-  data: {confirm: "Are you sure you want to delete this?"}
-%>
+
+        <div>
+          <%= link_to edit_category_task_path(@task.category_id, @task) do %>
+            <i class="bi bi-pencil-square p-2" data-toggle="tooltip" data-placement="top" title="Edit task"></i>
+          <% end %>
+          <%= link_to category_task_path(@task.category_id, @task),
+            method: :delete,
+            data: {confirm: "Are you sure you want to delete this?"} do
+          %>
+            <i class="bi bi-trash-fill p-2" data-toggle="tooltip" data-placement="top" title="Delete task"></i>
+          <% end %>
+        </div>
+            </div>
+      </div>
+  </div>
+</div>

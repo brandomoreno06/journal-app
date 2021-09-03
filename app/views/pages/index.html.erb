@@ -33,7 +33,7 @@
     <div class= "col col-md-3" >
         <div class="container-fluid mb-5">
           <h1 class="mb-5 date__display"><%= Date.current.to_formatted_s(:long) %></h1>
-          <h2 class="mb-3">Tasks for today</h2>
+          <h2 class="mb-3 title__priority">Tasks for today</h2>
           <ul class="list-group">
           <% if @tasks_today.any? %>
             <% @tasks_today.each do |task| %>
@@ -94,7 +94,6 @@
       <div class= "container-fluid mb-5" >
         <h2 class="mb-3">Upcoming Tasks</h2>
         <ul class="list-group">
-
           <% if @tasks_upcoming.any? %>
             <% @tasks_upcoming.order(:due_date).each do |task| %>
               <li class="list-group-item p-3 d-flex justify-content-between align-items-center mb-1">
@@ -107,8 +106,12 @@
             <% end %>
           <% else %>
             <li class="list-group-item p-3 d-flex justify-content-between align-items-center mb-1">
-                <div class="col col-8">
+                <div class="col col-8 d-flex align-items-center">
                   <p class="mb-0 text-muted">No upcoming task.</p>
+                  <%= link_to new_task_path, class: "nav-link" do%>
+                    <i class="bi bi-plus-circle"></i></h1>
+                    Add task now.
+                  <% end %>
                 </div>
             </li>
           <% end %>

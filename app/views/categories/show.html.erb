@@ -1,19 +1,59 @@
-<h1><%= @category.name %></h1>
-<%= link_to "Edit Category", edit_category_path(@category) %>
-<%= link_to "Delete Category", category_path(@category),
-  method: :delete, 
-  data: {confirm: "Are you sure you want to delete this?"}
-%>
+<div class="container show__view">
 
-<h2>My tasks</h2>
-<% @category.tasks.each do |task| %>
-  <%= task.name %>
-  <%= link_to "View Task", category_task_path(@category, task) %>
-  <%= link_to "Edit Task", edit_category_task_path(@category, task) %>
-  <%= link_to "Delete Task", category_task_path(@category, task),
-    method: :delete, 
-    data: {confirm: "Are you sure you want to delete this?"}
-  %>
-<% end %>
+  <div class="row d-flex flex-column flex-md-row mt-5">
+    <div class="col col-md-4 mb-5">
+      <h1 class="mb-5">Category details</h1>
+      <h1><%= @category.name %></h1>
+      <p>
+        <% if @category.description.empty? %>
+          <span class="text-muted">No desciption added for this category</span>
+        <% else %>
+          Description
+          <strong><%= @category.description %></strong>
+        <% end %>
+      </p>
+      <%= link_to edit_category_path(@category) do %>
+        <i class="bi bi-pencil-square p-2 icons__color" data-toggle="tooltip" data-placement="top" title="Edit category"></i>
+      <% end %>
+      <%= link_to category_path(@category),
+        method: :delete,
+        data: {confirm: "Are you sure you want to delete this?"} do
+      %>
+        <i class="bi bi-trash-fill p-2 icons__color" data-toggle="tooltip" data-placement="top" title="Delete category"></i>
+      <% end %>
+    </div>
+    
 
-<%= link_to "Add Task", new_category_task_path(@category) %>
+    <div class="col col-md-4">
+      <h2 class="mb-5">Tasks for this category</h2>
+
+      <ul class="list-group">
+        <% if !@category.tasks.empty? %>
+          <% @category.tasks.order(:due_date).each do |task| %>
+            <li class="list-group-item p-3 d-flex justify-content-between align-items-center mb-1">
+              <div class="col">
+                <h4 class="mb-0"><%= task.name %></h4>
+                <p class="mb-0"><%= task.due_date.to_formatted_s(:short) %></p>
+              </div>
+              <%= render "shared/modify_task", task:task %>
+            </li>
+          <% end %>
+        <% else %>
+          <span class="text-muted mb-3">No task added for this category</span>
+        <% end %>
+
+          <li class="list-group-item p-3 d-flex justify-content-between align-items-center mb-1">
+              <div class="col">
+                <p class="mb-0">
+                  <%= link_to new_category_task_path(@category), class: "nav-link" do%>
+                    <i class="bi bi-plus-circle"></i></h1>
+                    Add task
+                  <% end %>
+                </p>
+              </div>
+          </li>
+      </ul>
+    </div>
+    
+  </div>
+</div>

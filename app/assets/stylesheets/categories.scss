@@ -27,6 +27,10 @@ a {
   background-color: #b4efd6 !important;
   background: rgb(2,0,36);
   background: linear-gradient(45deg, rgba(2,0,36,1) 0%, rgba(180,239,214,1) 35%, rgba(0,212,255,1) 100%);
-  color: brown;
+  color: black;
   box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.show__view h1 {
+  color: brown;
 }
