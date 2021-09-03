@@ -21,3 +21,12 @@
 a {
   text-decoration: none !important;
 }
+
+.card {
+  border: none !important;
+  background-color: #b4efd6 !important;
+  background: rgb(2,0,36);
+  background: linear-gradient(45deg, rgba(2,0,36,1) 0%, rgba(180,239,214,1) 35%, rgba(0,212,255,1) 100%);
+  color: brown;
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}

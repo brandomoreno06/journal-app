@@ -19,7 +19,7 @@ end
     @category.user_id = current_user.id
 
     if @category.save
-      redirect_to category_path(@category)
+      redirect_to home_path
       flash[:notice] = "Successfully created a category."
     else
       render :new
@@ -37,7 +37,7 @@ end
       @category.update(category_params)
         
       if @category.save
-        redirect_to categories_path
+        redirect_to home_path
       else
         render :edit
       end
@@ -48,7 +48,7 @@ end
     @category = Category.find(params[:id])
     if category_owner?
       @category.destroy  
-      redirect_to categories_path
+      redirect_to home_path
     end
   end
 

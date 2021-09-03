@@ -2,7 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-
 .card-equal-height {
   height: 275px;
+}
+
+.card__task{
+  max-height: 180px;
+  overflow: auto;
+}
+
+.card__task::-webkit-scrollbar {
+  width: 0;
 }

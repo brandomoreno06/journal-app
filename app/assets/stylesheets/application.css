@@ -16,13 +16,31 @@
 
 body {
   margin: 0;
-  /* background-image: url(journal_img.jpg);
-  background-repeat: no-repeat;
-  background-size: contain; */
+  background-color: #010051 !important;
+  color: white !important;
 }
 
 body::-webkit-scrollbar {
   width: 0;
+}
+
+
+/* header */
+.header {
+  background-color: #010051 !important;
+}
+
+.navbar__color a, .navbar__color span {
+  color: white !important;
+}
+
+.navbar__color a:hover, a:hover, .icons__color i:hover {
+  color: brown !important ;
+}
+
+
+.welcome__header, .date__display {
+  color: brown;
 }
 
 

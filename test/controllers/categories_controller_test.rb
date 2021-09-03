@@ -64,11 +64,11 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "should redirect to /categories path after category creation" do
+  test "should redirect to home path after category creation" do
     post create_category_path params: { category: { name: 'Work', description: "", user_id: users(:one).id } }
     
     @category = Category.find_by(name: "Work", user_id: users(:one).id)
-    assert_redirected_to category_path(@category), "Failed to redirect to /category/:category[id] path"
+    assert_redirected_to home_path, "Failed to redirect to home path"
   end
 
 
@@ -95,12 +95,12 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
 
-  test "should redirect to /categories path after updating category" do
+  test "should redirect to home path after updating category" do
     @category = categories(:one)
     @category.name = "Updated"
     patch update_category_path(@category), params: { category: { name: "#{@category.name}", description: "" } }
     
-    assert_redirected_to categories_path, "Failed to redirect to /categories"
+    assert_redirected_to home_path, "Failed to redirect to /home"
   end
 
   test "should redirect to sign-in path if user is not signed-in on update" do

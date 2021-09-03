@@ -1,14 +1,28 @@
-<div class="container">
-  <h1>All Tasks</h1>
-  <ul class="list-group">
-    <% @tasks.each do |task| %>
-      <li class="list-group-item p-3 d-flex justify-content-between align-items-center">
-        <div class="col col-8">
-          <p class="mb-0"><%= task.name %></p>
-          <p class="mb-0"><%= task.due_date %></p>
+<div class="container mt-5 mb-5">
+  <% if @tasks.empty? %>
+    <div class="container d-flex justify-content-center align-items-center">
+      <div >
+        <h2>You don't have any task</h2>
+        <%= link_to new_task_path do %>
+        <div class="text-light">
+          Create a new task
+          <i class="bi bi-plus-circle"></i></h1>
         </div>
-        <%= render "/shared/modify_task", task: task %>
-      </li>
-    <% end %>
-  </ul>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <h1 class="mb-5">All Tasks</h1>
+    <ul class="list-group">
+      <% @tasks.each do |task| %>
+        <li class="list-group-item p-3 mb-1 d-flex justify-content-between align-items-center">
+          <div class="col col-8">
+            <p class="mb-0"><%= task.name %></p>
+            <p class="mb-0"><%= task.due_date %></p>
+          </div>
+          <%= render "/shared/modify_task", task: task %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 </div>

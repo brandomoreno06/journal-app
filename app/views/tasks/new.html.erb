@@ -4,15 +4,18 @@
   </div>
   
   <div class="container">
-    <%= render 'errors' %>
-    <%= form_with scope: :task, url: create_task_path, locale: true do |form| %>
-      <div class="mb-3">
-        <%= form.label :category_id, class: "form-label" %>
-        <%= form.collection_select :category_id, current_user.categories.order(:name), :id, :name, {}, class: "form-control" %>
+    <div class="col col-md-8">
+      <%= render 'errors' %>
+      <div class="container">
+        <%= form_with scope: :task, url: create_task_path, locale: true do |form| %>
+          <div class="mb-3">
+            <%= form.label :category_id, class: "form-label" %>
+            <%= form.collection_select :category_id, current_user.categories.order(:name), :id, :name, {}, class: "form-control" %>
+          </div>
+          <%= render 'form', f: form %>
+        <% end %>
       </div>
-  
-      <%= render 'form', f: form %>
-    <% end %>
+    </div>
   </div>
 </div>
 

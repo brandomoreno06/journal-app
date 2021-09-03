@@ -1,33 +1,39 @@
 <div class="container p-2">
-  <h1 class="text-center">Categories</h1>
+  <h1 class="text-center m-3">Categories</h1>
 
   <div class="row d-flex justify-content-around">
     <% @categories.each do |category| %>
-      <div class="card col-sm-6 col-md-4 card-equal-height">
-        <div class="card-body d-flex flex-column card__modify">
-          <h2 class="card-title"><%= category.name %></h2>
-          <p class="card-text"><%= category.description %></p>
-          <%= render 'shared/modify_category', category: category %>
+      <div class="col-sm-6 col-md-4 p-3">
+        <div class="card card-equal-height">
+          <div class="card-body d-flex flex-column card__modify">
+            <h2 class="card-title"><%= category.name %></h2>
+            <p class="card-text"><%= category.description %></p>
+            <%= render 'shared/modify_category', category: category %>
+          </div>
         </div>
       </div>
     <% end %>
 
     <% if @categories.length <= 5 %>
       <% (6 - @categories.length).times do %>
-        <div class="card col-sm-6 col-md-4 card-equal-height">
+        <div class="col-sm-6 col-md-4 p-3">
+          <div class="card card-equal-height">
+            <div class="card-body d-flex justify-content-center align-items-center">
+              <%= link_to new_category_path do %>
+                <h1><i class="bi bi-plus-circle"></i></h1>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="col-sm-6 col-md-4 p-3">
+        <div class="card card-equal-height">
           <div class="card-body d-flex justify-content-center align-items-center">
             <%= link_to new_category_path do %>
               <h1><i class="bi bi-plus-circle"></i></h1>
             <% end %>
           </div>
-        </div>
-      <% end %>
-    <% else %>
-      <div class="card col-sm-6 col-md-4 card-equal-height">
-        <div class="card-body d-flex justify-content-center align-items-center">
-          <%= link_to new_category_path do %>
-            <h1><i class="bi bi-plus-circle"></i></h1>
-          <% end %>
         </div>
       </div>
     <% end %>
