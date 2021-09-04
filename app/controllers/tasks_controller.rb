@@ -76,7 +76,7 @@ class TasksController < ApplicationController
   def category_owner?
     unless current_user.id == @category.user_id
       redirect_to home_path
-      flash[:alert] = "Unauthorized action"
+      flash[:error] = "Unauthorized action"
       return
     end
     return current_user.id == @category.user_id
@@ -85,7 +85,7 @@ class TasksController < ApplicationController
   def task_owner?
     unless current_user.id == @task.user_id
       redirect_to home_path
-      flash[:alert] = "Unauthorized action"
+      flash[:error] = "Unauthorized action"
       return
     end
     return current_user.id == @task.user_id
