@@ -35,10 +35,14 @@ body::-webkit-scrollbar {
 }
 
 
-.navbar__color a:hover, a:hover, .icons__color i:hover {
-  color: brown !important ;
+.icons__color{
+  color: #0D6EFE;
 }
 
+
+.navbar__color a:hover, a:hover, .icons__color:hover {
+  color: brown !important ;
+}
 
 .welcome__header, .date__display, .title__priority {
   color: brown;
@@ -87,8 +91,8 @@ body::-webkit-scrollbar {
 }
 
 .image__container {
-  width: 75vh;
-  height: 75vh;
+  width: 75vmin;
+  height: 75vmin;
 }
 
 .image__container img {

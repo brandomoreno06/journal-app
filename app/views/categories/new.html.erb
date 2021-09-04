@@ -1,17 +1,19 @@
-<div class="mt-5 mb-5 d-flex flex-column flex-md-row mt-5">
- <div class="container d-flex justify-content-center">
-    <div class="col col-md-8">
-      <h1 class="p-3 mb-3">Add Category</h1>
-      <%= render 'errors' %>
-      <%= form_with scope: :category, url: create_category_path do |f| %>
-        <%= render "form", form: f %>
-      <% end %>
+<div class="container">
+  <div class="row">
+    <div class="col col-md-6 mt-6 mb-5">
+      <div class="col col-md-10">
+        <h1 class="p-4 mb-3 title__priority">Add Category</h1>
+        <%= render 'errors' %>
+        <%= form_with scope: :category, url: create_category_path do |f| %>
+          <%= render "form", form: f %>
+        <% end %>
+      </div>
     </div>
-  </div>
 
-  <div class="container">
-    <div class="col col-md-4">
-      <h1>Add Category</h1>
+    <div class="col col-md-6 image__div">
+      <div class="image__container">
+        <%= image_tag "bg_image.png" %>
+      </div>
     </div>
   </div>
 </div>

@@ -1,24 +1,27 @@
-<div class="d-flex flex-column flex-md-row mt-5">
-  <div class="container d-flex justify-content-center">
-    <div class="col col-md-8">
-      <h1 class="p-3 mb-3">Add Task</h1>
-      <%= render 'errors' %>
-      <div class="container">
-        <%= form_with scope: :task, url: create_task_path, locale: true do |form| %>
-          <div class="mb-3">
-            <%= form.label :category_id, class: "form-label" %>
-            <%= form.collection_select :category_id, current_user.categories.order(:name), :id, :name, {}, class: "form-control" %>
-          </div>
-          <%= render 'form', f: form %>
-        <% end %>
+<div class="container">
+  <div class="row">
+    <div class="col col-md-6 mt-6 mb-5">
+      <div class="col col-md-10">
+        <h1 class="p-4 mb-3 title__priority">Add Task</h1>
+        <%= render 'errors' %>
+        <div class="container">
+          <%= form_with scope: :task, url: create_task_path, locale: true do |form| %>
+            <div class="mb-3">
+              <%= form.label :category_id, class: "form-label" %>
+              <%= form.collection_select :category_id, current_user.categories.order(:name), :id, :name, {}, class: "form-control" %>
+            </div>
+            <%= render 'form', f: form %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col col-md-6 image__div">
+      <div class="image__container">
+        <%= image_tag "bg_image.png" %>
       </div>
     </div>
   </div>
-
-  <div class="container">
-    <h1>Create New Task</h1>
-  </div>
-  
 </div>
 
 
