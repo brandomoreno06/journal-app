@@ -64,6 +64,18 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "should not create a category if category name already exist" do
+    post create_category_path params: { category: { name: 'Work', description: "", user_id: users(:one).id } }
+
+    assert_difference "Category.count", 0, "Created a a category with the same name as with an existing one" do
+      post create_category_path params: { category: { name: 'Work', description: "", user_id: users(:one).id } }
+    end
+
+    assert_difference "Category.count", 0, "Created a a category with the same name as with an existing one" do
+      post create_category_path params: { category: { name: 'worK', description: "", user_id: users(:one).id } }
+    end
+  end
+
   test "should redirect to home path after category creation" do
     post create_category_path params: { category: { name: 'Work', description: "", user_id: users(:one).id } }
     
@@ -126,6 +138,16 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     assert_not_equal Category.find(@category.id).name, 'Updated', "Updated a category which is not owned by the current user"
     assert_redirected_to home_path, "Failed to redirect to root path"
   end
+
+
+  test "should NOT update a category if category name already exist" do
+    @existing_category = categories(:existing)
+    @updating_category = categories(:one)
+
+    patch update_category_path(@updating_category), params: { category: { name: 'Existing', description: 'Updated' } }
+    assert_not_equal @existing_category.name, @updating_category.name, "Category has been renamed with the same name as other category"
+  end
+
 
   test "should NOT update category if user is not signed in" do
     sign_out users(:one)

@@ -19,3 +19,9 @@ four:
   name: MyString
   description: description
   user: two
+
+existing:
+  name: Existing
+  description: description
+  user: one
+
