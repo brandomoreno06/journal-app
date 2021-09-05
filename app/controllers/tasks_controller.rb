@@ -3,7 +3,7 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.where(user_id: current_user.id)
+    @tasks = current_user.tasks
   end
 
   def show
@@ -15,7 +15,7 @@ class TasksController < ApplicationController
   end
 
   def new_task
-    @category = Category.where(user_id: current_user.id).first
+    @category = current_user.categories.first
     if @category.nil?
       redirect_to new_category_path
       flash[:alert] = "You need to create a category before creating your first task."
@@ -29,13 +29,11 @@ class TasksController < ApplicationController
     @task = @category.tasks.new(task_params)
     @task.user_id = current_user.id
 
-    if category_owner?
-      if @task.save
-        redirect_to home_path
-        flash[:notice] = "Successfully added a task"
-      else
-        render :new
-      end
+    if @task.save
+      redirect_to home_path
+      flash[:notice] = "Successfully added a task"
+    else
+      render :new
     end
   end
 
@@ -47,6 +45,7 @@ class TasksController < ApplicationController
 
     if @task.save
       redirect_to home_path
+      flash[:notice] = "Successfully updated a task"
     else
       render :edit
     end
@@ -54,40 +53,23 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to home_path
+    redirect_to home_path, alert: "Task named \"#{@task.name}\" has been deleted"
   end
+
 
   private
-  
-  def find_category
-    @category = Category.find(params[:category_id])
-    category_owner?
-  end
-
-  def find_task
-    @task = Task.find(params[:id])
-    task_owner?
-  end
 
   def task_params
     params.require(:task).permit(:name, :details, :due_date)
   end
-
-  def category_owner?
-    unless current_user.id == @category.user_id
-      redirect_to home_path
-      flash[:error] = "Unauthorized action"
-      return
-    end
-    return current_user.id == @category.user_id
+  
+  def find_category
+    @category = Category.find(params[:category_id])
+    raise UnauthorizedError unless current_user.id == @category.user_id
   end
 
-  def task_owner?
-    unless current_user.id == @task.user_id
-      redirect_to home_path
-      flash[:error] = "Unauthorized action"
-      return
-    end
-    return current_user.id == @task.user_id
+  def find_task
+    @task = Task.find(params[:id])
+    raise UnauthorizedError unless current_user.id == @task.user_id
   end
 end
