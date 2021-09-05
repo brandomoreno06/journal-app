@@ -1,12 +1,13 @@
 class CategoriesController < ApplicationController
-  
+  before_action :find_category, only: [:show, :edit, :update, :destroy]
+  before_action :category_owner?, only: [:show, :edit, :update, :destroy]
+
+
   def index
     @categories = Category.where(user_id: current_user.id)
   end
 
   def show
-    @category = Category.find(params[:id])
-    category_owner?
     @task = @category.tasks
   end
 
@@ -17,11 +18,9 @@ end
   def create
     @category = Category.new(category_params)
     @category.user_id = current_user.id
+    unique_category_per_user #check if name already exists
 
-    if unique_category_per_user.present?
-      flash.now[:error] = "A category named \"#{params[:category][:name]}\" already exists."
-      render :new
-    elsif @category.save
+    if @category.save
       redirect_to home_path
       flash[:notice] = "Successfully created a category."
     else
@@ -30,35 +29,24 @@ end
   end
 
   def edit
-    @category = Category.find(params[:id])
-    category_owner?
   end
 
   def update
-    @category = Category.find(params[:id])
-    if category_owner?
-      if unique_category_per_user.present? && params[:id].to_i != unique_category_per_user.id.to_i
-        flash.now[:error] = "A category named \"#{params[:category][:name]}\" already exists."
-        render :edit
-      else
-        @category.update(category_params)
-          
-        if @category.save
-          redirect_to home_path
-        else
-          render :edit
-        end
-      end
+    unique_category_per_user #check if name already exists
+      
+    if @category.update(category_params)
+      redirect_to home_path
+      flash[:notice] = "Successfully updated a category."
+    else
+      render :edit
     end
   end
 
   def destroy
-    @category = Category.find(params[:id])
-    if category_owner?
-      @category.destroy  
-      redirect_to home_path
-    end
+    @category.destroy  
+    redirect_to home_path, alert: "Category named \"#{@category.name}\" has been deleted"
   end
+
 
   private
 
@@ -66,17 +54,21 @@ end
     params.require(:category).permit(:name, :description)
   end
 
-  def category_owner?
-    unless current_user.id == @category.user_id
-      redirect_to home_path
-      flash[:error] = "Unauthorized action"
-      return
-    end
-    return current_user.id == @category.user_id
+  def find_category
+    @category = Category.find(params[:id])
   end
 
-  def unique_category_per_user #on create
-    # Category.where(user_id: current_user.id).find_by('lower(name) = ?', params[:category][:name].downcase)
-    current_user.categories.find_by('lower(name) = ?', params[:category][:name].downcase)
+  def category_owner?
+    raise UnauthorizedError unless current_user.id == @category.user_id
+  end
+
+  def unique_category_per_user
+    category = current_user.categories.find_by('lower(name) = ?', params[:category][:name].downcase)
+
+    if params[:action] == "create"
+      raise NotUniqueCategoryError if category.present?
+    else
+      raise NotUniqueEditCategoryError if category.present? && category.id.to_i != params[:id].to_i
+    end
   end
 end

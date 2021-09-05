@@ -71,7 +71,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
       post create_category_path params: { category: { name: 'Work', description: "", user_id: users(:one).id } }
     end
 
-    assert_difference "Category.count", 0, "Created a a category with the same name as with an existing one" do
+    assert_difference "Category.count", 0, "Created a category with the same name as with an existing one" do
       post create_category_path params: { category: { name: 'worK', description: "", user_id: users(:one).id } }
     end
   end
@@ -109,8 +109,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
 
   test "should redirect to home path after updating category" do
     @category = categories(:one)
-    @category.name = "Updated"
-    patch update_category_path(@category), params: { category: { name: "#{@category.name}", description: "" } }
+    patch update_category_path(@category), params: { category: { name: "Updated", description: "" } }
     
     assert_redirected_to home_path, "Failed to redirect to /home"
   end
@@ -136,7 +135,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     patch update_category_path(@category), params: { category: { name: 'Updated', description: 'Updated' } }
 
     assert_not_equal Category.find(@category.id).name, 'Updated', "Updated a category which is not owned by the current user"
-    assert_redirected_to home_path, "Failed to redirect to root path"
+    assert_redirected_to home_path, "Failed to redirect to home_path"
   end
 
 
@@ -176,7 +175,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
   test "should NOT delete a category if user is not the owner" do
     @category = categories(:three)
     delete category_path(@category)
-    assert_not_nil Category.find_by(id: @category.id), "Category has been deleted while user is not signed in"
+    assert_not_nil Category.find_by(id: @category.id), "Category not owned by the user has been deleted"
   end
 
 

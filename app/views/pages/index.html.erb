@@ -95,7 +95,7 @@
         <h2 class="mb-3">Upcoming Tasks</h2>
         <ul class="list-group">
           <% if @tasks_upcoming.any? %>
-            <% @tasks_upcoming.order(:due_date).each do |task| %>
+            <% @tasks_upcoming.each do |task| %>
               <li class="list-group-item p-3 d-flex justify-content-between align-items-center mb-1">
                 <div class="col col-8">
                   <h4 class="mb-0"><%= task.name %></h4>
